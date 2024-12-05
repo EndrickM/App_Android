@@ -10,12 +10,29 @@ const { width, height } = Dimensions.get('window');
 
 
 const Categorias = [
-  { id: 1, name: 'Mercado' },
-  { id: 2, name: 'Tarefas' },
-  { id: 3, name: 'Reuniões' },
-  { id: 4, name: 'Shopping' },
-  { id: 5, name: 'Outros' },
+  { id: 1, categoria: 'Mercado' },
+  { id: 2, categoria: 'Tarefas' },
+  { id: 3, categoria: 'Reuniões' },
+  { id: 4, categoria: 'Shopping' },
+  { id: 5, categoria: 'Outros' },
 ];
+
+const getCategoryColor = (categoria) => {
+  switch (categoria) {
+    case 'Mercado':
+      return '#d9534f';
+    case 'Tarefas':
+      return '#f0ad4e';
+    case 'Reuniões':
+      return '#5cb85c';
+    case 'Shopping':
+      return '#0275d8';
+    case 'Outros':
+      return '#6c757d';
+    default:
+      return '#ccc';
+  }
+};
 
 const Listas = ({ navigation }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -88,7 +105,12 @@ const Listas = ({ navigation }) => {
         >
           <Text style={styles.listText}>{item.name}</Text>
         </TouchableOpacity>
-        <View style={styles.categoryTag}>
+        <View
+              style={[
+                styles.categoryTag,
+                { backgroundColor: getCategoryColor(item.categoria) },
+              ]}
+            >
           <Text style={styles.categoryText}>{item.categoria}</Text>
         </View>
         <TouchableOpacity
@@ -148,11 +170,11 @@ const styles = StyleSheet.create({
     maxHeight: 645, 
   },
   box: {
-    padding: 15,
-    marginBottom: 10,
+    padding: 10,
+    marginBottom: 8,
     backgroundColor: '#F9F9F9',
     borderRadius: 8,
-    borderWidth: 3,
+    borderWidth: 2,
     borderColor: '#ddd',
     shadowColor: '#000', 
     shadowOffset: { width: 0, height: 2 },
@@ -166,8 +188,10 @@ const styles = StyleSheet.create({
   },
   listItem: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 5,
+    borderBottomColor: '#eee',
   },
   listText: {
     fontSize: 16,
@@ -175,15 +199,14 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   categoryTag: {
-    paddingHorizontal: 10,
     paddingVertical: 5,
-    backgroundColor: '#E8E8E8',
-    borderRadius: 5,
-    minWidth: 70, 
-    alignItems: 'center',
+    paddingHorizontal: 10,
+    borderRadius: 12,
   },
   categoryText: {
-    fontSize: 12,
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   addButton: {
     position: 'absolute',
